@@ -112,7 +112,7 @@ Projeto educacional para fins de aprendizado de programação em C.
 
 ## 📬Publicações
 
-- [Paper](Paper_CodleC.pdf)
+- [Paper](PaperCodleC.pdf)
 - [Dev.to](https://dev.to/arthur2023102413/codlec-building-a-wordle-clone-in-c-2e5n)
 - [Medium](https://medium.com/@2023102413/codlec-como-desenvolvi-um-jogo-de-palavras-em-c-993a16532b48) 
 
