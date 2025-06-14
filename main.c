@@ -233,7 +233,7 @@ void init_game(GameState* game, Difficulty difficulty) {
            game->max_attempts = 7;     // Fácil: 7 tentativas
            break;
        case MEDIUM:
-           game->max_attempts = 6;     // Médio: 6 tentativas (padrão Wordle)
+           game->max_attempts = 6;     // Médio: 6 tentativas
            break;
        case HARD:
        case DEMO:
@@ -423,7 +423,7 @@ void display_results(void) {
 */
 void display_game_board(GameState* game) {
     clear_screen();
-    printf("\n%s=== WORDLE GAME ===%s", BOLD, RESET);
+    printf("\n%s=== CodleC ===%s", BOLD, RESET);
     
     const char* diff_names[] = {
         "",      // Índice 0 não usado
