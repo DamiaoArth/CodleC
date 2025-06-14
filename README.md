@@ -1,4 +1,3 @@
-
 # 🎮 CodleC - Jogo estilo Wordle em C
 
 **CodleC** é uma versão em C do famoso jogo de palavras "Wordle", com suporte a múltiplas dificuldades, dicas, feedback visual com cores no terminal e persistência de resultados. O jogo é completamente jogável em modo texto e multiplataforma (Linux/macOS e Windows).
