@@ -207,8 +207,12 @@ void restore_console(void) {
     Funciona em qualquer terminal que suporte códigos ANSI
 */
 void clear_screen(void) {
-   printf(CLEAR_SCREEN);   // Envia código ANSI para limpar tela e posicionar cursor
-   fflush(stdout);         // Força a saída imediata dos dados do buffer
+    #ifdef _WIN32
+        system("cls");  // Limpa o terminal no Windows
+    #else
+        printf(CLEAR_SCREEN);  // Código ANSI para Unix/Linux
+    #endif
+    fflush(stdout);
 }
 
 /*
@@ -428,7 +432,7 @@ void display_game_board(GameState* game) {
         "DIFÍCIL", // Índice 3 (HARD)
         "DEMO"   // Índice 4 (DEMO)
     };
-    printf(" [%s%s%s] Attempt: %d/%d\n", 
+    printf(" [%s%s%s] Tentativas: %d/%d\n", 
            BOLD, diff_names[game->difficulty], RESET,
            game->current_attempt, game->max_attempts);
     
@@ -714,6 +718,7 @@ void display_timer_bar(int remaining) {
     Formato: "Dicas: 2/3 usadas - Próxima dica: [████░░░] 05s"
 */
 void display_hints_info(GameState* game) {
+
     // Exibe contador básico de dicas utilizadas
     printf("Dicas: %d/%d usadas", game->hints_used, MAX_HINTS);
     
@@ -731,6 +736,7 @@ void display_hints_info(GameState* game) {
                 // Ainda em cooldown - mostra barra de progresso
                 printf(" - Próxima dica: ");
                 display_timer_bar(remaining);
+                
             } else {
                 // Cooldown terminado - dica disponível
                 printf(" - %s✓ DISPONÍVEL%s", GREEN, RESET);
@@ -855,6 +861,7 @@ char* get_guess_with_pause(GameState* game) {
     
     while (1) {
         // Atualiza a tela a cada segundo se o timer de dicas estiver ativo
+            
         time_t now = time(NULL);
         if (now != last_update && game->hints_used > 0 && game->hints_used < MAX_HINTS) {
             int remaining = HINT_DELAY - (int)(now - game->last_hint_time);
@@ -1168,8 +1175,8 @@ int main(void) {
     setup_console();  // Configura console para captura de teclas e cores
 
     // Carrega listas de palavras dos arquivos de texto
-    WORD_COUNT = carregar_palavras(word_list, "palavras.txt", 0);
-    HARD_WORD_COUNT = carregar_palavras(hard_word_list, "palavras_dificeis.txt", 1);
+WORD_COUNT = carregar_palavras(word_list, "palavras.txt", 0);
+HARD_WORD_COUNT = carregar_palavras(hard_word_list, "palavras_dificeis.txt", 1);
     
     // Verifica se carregou quantidade mínima de palavras necessárias
     if (WORD_COUNT < 100 || HARD_WORD_COUNT < 10) {
